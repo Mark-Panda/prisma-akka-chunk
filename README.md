@@ -6,8 +6,10 @@ Prisma 1 的Docker服务端的基础代码。使用Scala编写。sbt来打包程
 [本服务原地址](https://github.com/prisma/prisma1/tree/master/server)
 
 ## 修改
-> 修改了 `servers/api/src/main/resources/application.conf` 在文件中增加了 `parsing.max-chunk-size = 10m` 
+> 修改了 `servers/api/src/main/resources/application.conf` 在文件中增加了 `parsing.max-chunk-size = 10m` `parsing.max-chunk-size = ${?AKKA_MAX_CHUNK_SIZE}` 默认传输块的大小为10m,可以在构造Docker镜像时定义环境变量 `AKKA_MAX_CHUNK_SIZE` 例如`AKKA_MAX_CHUNK_SIZE: 20m`来重新规范传输块的大小
+
 > 基于报错  `HTTP chunk size exceeds the configured limit of 1048576 bytes` 查询原因是因为Scala的 akka请求中默认请求块大小为1024KB
+
 > 本服务在 `build.sbt`中已经将关于 `prerun_hook.sh` 的内容注释了，因为`prerun_hook.sh`内容不能为空。
 
 ## 打包问题
