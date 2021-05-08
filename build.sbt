@@ -52,7 +52,6 @@ def commonDockerImageSettings(imageName: String, baseImage: String, tag: String)
       runShell(s"chmod", "+x", s"$targetDir/start.sh")
       runShell(s"chmod", "+x", s"$targetDir/bin/${executableScriptName.value}")
       env("COMMIT_SHA", sys.env.getOrElse("COMMIT_SHA", sys.error("Env var COMMIT_SHA required but not found.")))
-//      env("CLUSTER_VERSION", "local")
       env("CLUSTER_VERSION", sys.env.getOrElse("CLUSTER_VERSION", sys.error("Env var CLUSTER_VERSION required but not found.")))
       entryPointShell(s"$targetDir/start.sh")
     }
